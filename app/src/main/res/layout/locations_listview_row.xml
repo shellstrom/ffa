@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="?android:attr/listPreferredItemHeightSmall"
+  android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+  android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+  android:background="@drawable/custom_ripple">
+
+  <TextView
+    android:id="@+id/text_location_title"
+    android:text="Location, location, location..."
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:gravity="center_vertical"
+    android:layout_toLeftOf="@+id/imagebutton_location"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+     />
+
+  <ImageButton
+    android:id="@+id/imagebutton_location"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:src="@drawable/ic_location_on_black_24dp"
+    android:background="@null"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
+</RelativeLayout>

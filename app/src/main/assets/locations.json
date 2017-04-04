@@ -1,0 +1,16 @@
+  [
+    {
+      "id": 0,
+      "name": "Example location",
+      "description": "Example description",
+      "latitude": 59.3267585,
+      "longitude": 18.0717248,
+      "bearing": 0,
+      "zoom": 17,
+      "bitmap-x": 115,
+      "bitmap-y": 100,
+      "pre-scale": 0,
+      "plan-image": "example_floor_plan",
+      "last-update": "2017-04-01"
+    }
+  ]
