@@ -44,13 +44,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-/*
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
- *
- * Created in 2017-04 by Jonas Hellström (SHELLSTROM)
- */
-
 /**
  * The main startup activity.
  *
