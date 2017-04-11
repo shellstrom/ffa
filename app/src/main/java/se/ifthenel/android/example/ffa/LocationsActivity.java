@@ -43,6 +43,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The main startup activity.
@@ -99,8 +101,11 @@ public class LocationsActivity extends AppCompatActivity implements LOG {
       mLocations = getExternalStorageLocations();
     }
 
+    // Sort the locations in the list
+    sortLocations();
+
     // Populate the RecyclerView with what we have so far
-    refreshAdapter();
+    initAdapter();
 
     if(!LOCAL) {
       // We can use an AsyncTask to collect information and resources e.g. from a service
@@ -137,9 +142,10 @@ public class LocationsActivity extends AppCompatActivity implements LOG {
         }
 
         // Update the recyclerview excluding the non-matching parts of the filter string
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(LocationsActivity.this));
-        mListsAdapter = new LocationsAdapter(filteredList);
-        mRecyclerView.setAdapter(mListsAdapter);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(LocationsActivity.this));
+        //mListsAdapter = new LocationsAdapter(filteredList);
+        //mRecyclerView.setAdapter(mListsAdapter);
+        mListsAdapter.swap(filteredList);
         mListsAdapter.notifyDataSetChanged();
       }
 
@@ -158,7 +164,7 @@ public class LocationsActivity extends AppCompatActivity implements LOG {
     }
   }
 
-  private void refreshAdapter() {
+  private void initAdapter() {
     // Bind the adapter and recyclerview for displaying available locations
     mListsAdapter = new LocationsAdapter(mLocations);
     mRecyclerView = (RecyclerView) findViewById(R.id.locations_recyclerview);
@@ -298,6 +304,17 @@ public class LocationsActivity extends AppCompatActivity implements LOG {
   }
 
   /**
+   * Sorts a list of locations contained in an ArrayList member variable
+   */
+  private void sortLocations() {
+    Collections.sort(mLocations, new Comparator<Location>() {
+      public int compare(Location o1, Location o2) {
+        return o1.getLocationName().compareTo(o2.getLocationName());
+      }
+    });
+  }
+
+  /**
    * An AsyncTask for fetching and adding news articles of the user-defined news feeds. Note: Cancelling an AsyncTask
    * might not cancel the currently active process/thread immediately. doInBackground will run its course if no
    * defined procedure to stop the code from executing exists.
@@ -325,8 +342,6 @@ public class LocationsActivity extends AppCompatActivity implements LOG {
           @Override
           public void onCancel(DialogInterface dialog) {
             cancel(true);
-            mLocations = mStoredLocations;
-            refreshAdapter();
           }
         });
         progressDialog.show();
@@ -504,7 +519,9 @@ public class LocationsActivity extends AppCompatActivity implements LOG {
         }
         mLocations = mFetchedLocations;
       }
-      refreshAdapter();
+      sortLocations();
+      mListsAdapter.swap(mLocations);
+      mListsAdapter.notifyDataSetChanged();
       if(progressDialog != null) {
         progressDialog.dismiss();
         mSharedPreferences.edit().putBoolean("first_run", false).apply();

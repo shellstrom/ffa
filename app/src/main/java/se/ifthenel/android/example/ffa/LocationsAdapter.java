@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This adapter holds and displays views containing information for each row of the Locations list
  */
 class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.ViewHolder> implements LOG {
-  private final List<Location> mLocations;
+  private List<Location> mLocations;
 
   LocationsAdapter(List<Location> locations) {
     mLocations = locations;
@@ -45,6 +46,16 @@ class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.ViewHolder>
       return mLocations.size();
     } else {
       return 0;
+    }
+  }
+
+  /**
+   * Replaces the current list of items with another one
+   * @param locations The list used as replacement
+   */
+  public void swap(ArrayList<Location> locations) {
+    if(mLocations != null) {
+      mLocations = locations;
     }
   }
 
